@@ -1,9 +1,11 @@
-require('dotenv').config();
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const { errorHandler } = require('./middleware/validation.middleware');
+import dotenv from 'dotenv';
+import express from 'express';
+import mongoose from 'mongoose';
+import cors from 'cors';
+import {errorHandler} from './middleware/validation.middleware.js';
+import productRoutes from './routes/product.routes.js';
 
+dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -17,7 +19,7 @@ mongoose.connect(process.env.MONGODB_URI)
   .catch(err => console.error('MongoDB connection error:', err));
 
 // Routes
-app.use('/api/products', require('./routes/product.routes'));
+app.use('/api/products', productRoutes);
 
 // Error handling middleware (must be after all other middleware and routes)
 app.use(errorHandler);
@@ -36,11 +38,4 @@ process.on('unhandledRejection', (err) => {
   });
 });
 
-// Handle uncaught exceptions
-process.on('uncaughtException', (err) => {
-  console.error('UNCAUGHT EXCEPTION! 💥 Shutting down...');
-  console.error(err);
-  server.close(() => {
-    process.exit(1);
-  });
-});
+export default server;

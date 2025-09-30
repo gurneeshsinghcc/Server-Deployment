@@ -1,7 +1,7 @@
-const { body, validationResult } = require('express-validator');
+import { body, validationResult } from 'express-validator';
 
 // Validation rules for product
-exports.validateProduct = [
+export const validateProduct = [
   body('name').notEmpty().withMessage('Name is required'),
   body('price')
     .isNumeric().withMessage('Price must be a number')
@@ -14,7 +14,7 @@ exports.validateProduct = [
 ];
 
 // Middleware to handle validation errors
-exports.handleValidationErrors = (req, res, next) => {
+export const handleValidationErrors = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -23,7 +23,7 @@ exports.handleValidationErrors = (req, res, next) => {
 };
 
 // Error handling middleware
-exports.errorHandler = (err, req, res, next) => {
+export const errorHandler = (err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ message: 'Something went wrong!' });
 };

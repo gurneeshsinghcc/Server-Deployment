@@ -1,21 +1,21 @@
-const express = require('express');
+import express from 'express'
 const router = express.Router();
-const productController = require('../controllers/product.controller');
-const { validateProduct, handleValidationErrors } = require('../middleware/validation.middleware');
+import  {createProduct, getAllProducts, getProductById, deleteProduct, updateProduct} from '../controllers/product.controller.js';
+import { validateProduct, handleValidationErrors } from '../middleware/validation.middleware.js';
 
 // Create a new product
-router.post('/', validateProduct, handleValidationErrors, productController.createProduct);
+router.post('/', validateProduct, handleValidationErrors, createProduct);
 
 // Get all products
-router.get('/', productController.getAllProducts);
+router.get('/', getAllProducts);
 
 // Get a single product
-router.get('/:id', productController.getProductById);
+router.get('/:id', getProductById);
 
 // Update a product
-router.put('/:id', validateProduct, handleValidationErrors, productController.updateProduct);
+router.put('/:id', validateProduct, handleValidationErrors, updateProduct);
 
 // Delete a product
-router.delete('/:id', productController.deleteProduct);
+router.delete('/:id', deleteProduct);
 
-module.exports = router;
+export default router;
