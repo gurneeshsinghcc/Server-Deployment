@@ -38,5 +38,4 @@ process.on('unhandledRejection', (err) => {
   });
 });
 
-// test
 export default server;
