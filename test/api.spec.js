@@ -22,7 +22,7 @@ describe("Express App Tests", () => {
         .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res.body).to.be.an("array");
-          expect(res.body.length).to.be.lessThan(1);
+          expect(res.body.length).to.be.greaterThan(0);
           done();
         });
     });
